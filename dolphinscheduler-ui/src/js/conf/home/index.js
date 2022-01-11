@@ -31,8 +31,7 @@ import Chart from '@/module/ana-charts'
 import '@/module/filter/formatDate'
 import '@/module/filter/filterNull'
 import themeData from '@/module/echarts/themeData.json'
-import Permissions from '@/module/permissions'
-import 'sass/conf/home/index.scss'
+import '../../../sass/conf/home/index.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -64,33 +63,30 @@ Chart.config({
 })
 
 /* eslint-disable no-new */
-Permissions.request().then(res => {
-  // instance
-  new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App),
-    mounted () {
-      document.addEventListener('click', (e) => {
-        $('#contextmenu').css('visibility', 'hidden')
+new Vue({
+  el: '#app',
+  router,
+  store,
+  render: h => h(App),
+  mounted () {
+    document.addEventListener('click', (e) => {
+      $('#contextmenu').css('visibility', 'hidden')
+    })
+  },
+  methods: {
+    initApp () {
+      $('.global-loading').hide()
+      const bootstrapTooltip = $.fn.tooltip.noConflict()
+      $.fn.tooltip = bootstrapTooltip
+      $('body').tooltip({
+        selector: '[data-toggle="tooltip"]',
+        trigger: 'hover'
       })
-    },
-    methods: {
-      initApp () {
-        $('.global-loading').hide()
-        const bootstrapTooltip = $.fn.tooltip.noConflict()
-        $.fn.tooltip = bootstrapTooltip
-        $('body').tooltip({
-          selector: '[data-toggle="tooltip"]',
-          trigger: 'hover'
-        })
-        // init
-        i18n.init()
-      }
-    },
-    created () {
-      this.initApp()
+      // init
+      i18n.init()
     }
-  })
+  },
+  created () {
+    this.initApp()
+  }
 })

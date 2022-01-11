@@ -21,6 +21,7 @@ import { findLocale } from './config'
 import { template } from '@/module/util'
 import cookies from 'js-cookie'
 
+const FORCE_LANG = 'zh_CN';
 const globalScope = typeof window !== 'undefined' && window.document ? window : global
 
 const $t = (str, data) => {
@@ -33,7 +34,7 @@ const $t = (str, data) => {
     init()
   }
 
-  let language = findLocale(globalScope.LOCALE).locale
+  let language = findLocale(FORCE_LANG || globalScope.LOCALE).locale
 
   /**
    * $t('等待查询aaa',{aaa:111})
@@ -45,18 +46,18 @@ const locale = (lang) => {
   // global
   globalScope.LOCALE = lang
   // cookies
-  cookies.set('language', lang,{ path: '/' })
+  cookies.set('language', lang, { path: '/' })
 }
 
 const init = () => {
   let language = cookies.get('language')
   if (language) {
-    locale(language)
+    locale(FORCE_LANG || language)
   }else{
     /**
      * Browser language
      */
-    let lang = (navigator.language || navigator.userLanguage).indexOf("CN") !== -1
+    let lang = FORCE_LANG || (navigator.language || navigator.userLanguage).indexOf("CN") !== -1
     locale(lang ? 'zh_CN' : 'en_US')
   }
 }

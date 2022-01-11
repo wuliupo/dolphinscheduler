@@ -18,6 +18,7 @@
 import _ from 'lodash'
 import Vue from 'vue'
 import store from '@/conf/home/store'
+import router from '@/conf/home/router'
 
 const Permissions = function () {
   this.isAuth = true
@@ -28,12 +29,12 @@ Permissions.prototype = {
   request () {
     return new Promise((resolve, reject) => {
       store.dispatch('user/getUserInfo').then(res => {
-        if (res.userType !== 'GENERAL_USER') {
+        if (res && !res.userType) { // 'GENERAL_USER'
           this.isAuth = false
         }
         this.ps(res)
-        resolve()
-      })
+        resolve(this.isAuth)
+      }).catch(() => null)
     })
   },
   // Command authority status

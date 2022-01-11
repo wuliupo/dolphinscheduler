@@ -127,6 +127,7 @@
       position: absolute;
       right: -1px;
       top: calc(50% - 50px);
+      z-index: 1;
       .tog-close {
         width: 12px;
         height: 102px;

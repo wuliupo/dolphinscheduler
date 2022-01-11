@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 <template>
+<div class="login-container">
   <div class="login-model">
     <div class="text-1">
       <a href="javascript:"></a>
@@ -57,11 +58,13 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
   import i18n from '@/module/i18n'
   import io from '@/module/io'
   import cookies from 'js-cookie'
+  import router from '../home/router'
 
   export default {
     name: 'login-model',
@@ -92,9 +95,11 @@
               }
 
               if (this.userName === 'admin') {
-                window.location.href = `${PUBLIC_PATH}/#/security/tenant`
+                // window.location.href = `${PUBLIC_PATH}/#/security/tenant`
+                router.push({ name: 'tenement-manage' });
               } else {
-                window.location.href = `${PUBLIC_PATH}/#/home`
+                // window.location.href = `${PUBLIC_PATH}/#/home`
+                router.push({ name: 'home' });
               }
             }, 1000)
           }).catch(e => {
@@ -125,6 +130,7 @@
             userPassword: this.userPassword
           }, res => {
             resolve(res)
+            this.$emit('LOGIN_SUCCESS', true)
           }).catch(e => {
             reject(e)
           })
@@ -147,6 +153,7 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  @import '../../../sass/conf/login/index.scss';
   .login-model {
     width: 400px;
     min-height: 260px;

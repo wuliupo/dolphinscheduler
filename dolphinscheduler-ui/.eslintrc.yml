@@ -21,13 +21,12 @@ env:
   jquery: true
 extends:
   - 'plugin:vue/essential'
-  - standard
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
-  PUBLIC_PATH: readonly
   $t: readonly
 parserOptions:
+  parser: babel-eslint
   ecmaVersion: 2018
   sourceType: module
 plugins:

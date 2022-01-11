@@ -16,6 +16,7 @@
  */
 
 import io from '@/module/io'
+import router from '@/conf/home/router'
 
 export default {
   /**
@@ -37,7 +38,7 @@ export default {
   signOut () {
     io.post('signOut', res => {
       setTimeout(() => {
-        window.location.href = `${PUBLIC_PATH}/view/login/index.html`
+        router.push({ name: 'login' });
       }, 100)
     }).catch(e => {
       console.log(e)

@@ -59,7 +59,6 @@
 <script>
   import i18n from '@/module/i18n'
   import { mapActions } from 'vuex'
-  import { folderList } from '../_source/common'
   import mListBoxF from '@/module/components/listBoxF/listBoxF'
   import mListConstruction from '@/module/components/listConstruction/listConstruction'
 
@@ -70,7 +69,6 @@
         type: '',
         name: '',
         description: '',
-        folderList: folderList,
         spinnerLoading: false
       }
     },

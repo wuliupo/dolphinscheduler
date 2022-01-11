@@ -30,6 +30,11 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ '../../login/App'),
+    },
+    {
       path: '/',
       name: 'index',
       redirect: {

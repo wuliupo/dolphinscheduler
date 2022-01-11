@@ -17,6 +17,7 @@
 
 import io from '@/module/axios/index'
 import cookies from 'js-cookie'
+import router from '@/conf/home/router'
 
 const apiPrefix = '/dolphinscheduler'
 const reSlashPrefix = /^\/+/
@@ -45,7 +46,7 @@ io.config.timeout = 0
 io.config.maxContentLength = 200000
 io.config.validateStatus = function (status) {
   if (status === 401 || status === 504) {
-    window.location.href = `${PUBLIC_PATH}/view/login/index.html`
+    router.push({ name: 'login' });
     return
   }
   return status
@@ -76,7 +77,7 @@ io.interceptors.request.use(
     const sessionId = sessionStorage.getItem('sessionId')
     const requstUrl = config.url.substring(config.url.lastIndexOf('/') + 1)
     if ((!sIdCookie || (sessionId && sessionId !== sIdCookie)) && requstUrl !== 'login') {
-      window.location.href = `${PUBLIC_PATH}/view/login/index.html`
+      router.push({ name: 'login' });
     } else {
       const { method } = config
       if (method === 'get') {

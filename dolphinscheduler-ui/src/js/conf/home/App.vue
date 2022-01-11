@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 <template>
-  <m-layout>
+  <router-view v-if="$route.name === 'login'" />
+  <m-layout v-else-if="isInit">
     <m-nav slot="top"></m-nav>
-    <router-view slot="bottom" v-if="isRenderRouterView"></router-view>
+    <router-view slot="bottom" v-if="isRenderRouterView" />
   </m-layout>
 </template>
 
@@ -25,10 +26,12 @@
   import visibility from '@/module/visibility'
   import mLayout from '@/module/components/layout/layout'
   import mNav from '@/module/components/nav/nav'
+
   export default {
     name: 'app',
     data () {
       return {
+        isInit: false,
         isRenderRouterView: true
       }
     },
@@ -40,7 +43,8 @@
         })
       }
     },
-    mounted () {
+    async mounted () {
+      setTimeout(() => this.isInit = true, 100);
       visibility.change((evt, hidden) => {
         if (hidden === false && this.$route.meta.refreshInSwitchedTab) {
           this.reload()

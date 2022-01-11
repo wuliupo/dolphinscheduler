@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="right">
-      <span class="lang">
+      <span class="lang hidden">
         <el-dropdown @command="_toggleLanguage">
           <span class="el-dropdown-link">
             {{activeLocale.name}}<em class="el-icon-arrow-down"></em>
